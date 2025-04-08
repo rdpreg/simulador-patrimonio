@@ -33,7 +33,7 @@ if st.button("Simular"):
     juros = valores[-1] - aportes[-1]
 
     def formata_reais(valor):
-    return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+        return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
 
     
     st.subheader("Resultado Final")
