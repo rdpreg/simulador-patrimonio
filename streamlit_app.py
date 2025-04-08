@@ -9,8 +9,7 @@ st.set_page_config(page_title="Simulador de Patrimônio", layout="centered")
 col_titulo = st.columns([1, 3])
 #with col_logo:
     #st.image("logo_empresa.png", width=100)  # Substitua pelo nome real do arquivo
-with col_titulo:
-    st.title("Simulador de Rentabilidade")
+col_titulo.title("Simulador de Rentabilidade")
 
 st.markdown("Insira os dados abaixo para simular seu patrimônio ao longo do tempo.")
 
