@@ -7,7 +7,7 @@ st.set_page_config(page_title="Projeção de Patrimônio", layout="centered")
 # Cabeçalho com logo e título
 cols = st.columns([1, 4])
 cols[0].image("https://drive.google.com/uc?id=1rlJl0tLEFCSgO3HJBkDq_ZmIRszjVOEw", width=100)  # Troque o nome se for diferente
-cols[1].markdown("## 💼 Projção de Patrimônio")
+cols[1].markdown("## Projção de Patrimônio")
 
 # --- Entradas do usuário ---
 patrimonio_inicial = st.number_input("Patrimônio Inicial (R$)", min_value=0.0, value=50000.0, step=1000.0)
