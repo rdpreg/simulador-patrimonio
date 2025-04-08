@@ -1,4 +1,5 @@
 import streamlit as st
+import matplotlib.pyplot as plt
 
 # Configuração da página
 st.set_page_config(page_title="Fase de Renda Passiva", layout="centered")
@@ -43,7 +44,25 @@ if st.button("Calcular Renda Mensal"):
         st.write(f"Renda mensal vitalícia estimada:")
         st.success(formata_reais(renda_perpetua))
 
+        # Gráfico
+        fig1, ax1 = plt.subplots()
+        ax1.plot(range(prazo_meses + 1), patrimonio_perpetuo, label="Patrimônio", color="green")
+        ax1.set_title("Evolução do Patrimônio (Perpétuo)")
+        ax1.set_xlabel("Meses")
+        ax1.set_ylabel("Valor (R$)")
+        ax1.grid(True)
+        st.pyplot(fig1)
+
     with col2:
         st.subheader(" Gastar até zerar")
         st.write(f"Renda mensal por {prazo_anos} anos:")
         st.success(formata_reais(renda_prazo_fixo))
+
+        # Gráfico
+        fig2, ax2 = plt.subplots()
+        ax2.plot(range(prazo_meses + 1), patrimonio_prazo, label="Patrimônio", color="orange")
+        ax2.set_title("Evolução do Patrimônio (Prazo Fixo)")
+        ax2.set_xlabel("Meses")
+        ax2.set_ylabel("Valor (R$)")
+        ax2.grid(True)
+        st.pyplot(fig2)
