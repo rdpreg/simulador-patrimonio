@@ -46,4 +46,4 @@ if st.button("Calcular Renda Mensal"):
     with col2:
         st.subheader("⏳ Gastar até zerar")
         st.write(f"Renda mensal por {prazo_anos} anos:")
-        st.success(formata_reais(renda_
+        st.success(formata_reais(renda_prazo_fixo)
