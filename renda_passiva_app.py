@@ -39,11 +39,11 @@ if st.button("Calcular Renda Mensal"):
     col1, col2 = st.columns(2)
 
     with col1:
-        st.subheader("🔁 Perpetuar o Patrimônio")
+        st.subheader(" Perpetuar o Patrimônio")
         st.write(f"Renda mensal vitalícia estimada:")
         st.success(formata_reais(renda_perpetua))
 
     with col2:
-        st.subheader("⏳ Gastar até zerar")
+        st.subheader(" Gastar até zerar")
         st.write(f"Renda mensal por {prazo_anos} anos:")
         st.success(formata_reais(renda_prazo_fixo))
