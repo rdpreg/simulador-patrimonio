@@ -2,10 +2,10 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Simulador de Patrimônio", layout="centered")
+st.set_page_config(page_title="Projeção de Patrimônio", layout="centered")
 
 # Título e instrução
-st.markdown("## Simulador de Rentabilidade")
+st.markdown("## Projeção de Rentabilidade")
 st.markdown("Insira os dados abaixo para simular seu patrimônio ao longo do tempo.")
 
 # --- Entradas do usuário ---
