@@ -2,14 +2,10 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-# --- Configuração da página ---
 st.set_page_config(page_title="Simulador de Patrimônio", layout="centered")
 
-# --- Cabeçalho com logo e título ---
-col_titulo = st.columns([1, 3])  # <- ESSA LINHA É ESSENCIAL
-
-col_titulo.title("Simulador de Rentabilidade")
-
+# Título e instrução
+st.markdown("## Simulador de Rentabilidade")
 st.markdown("Insira os dados abaixo para simular seu patrimônio ao longo do tempo.")
 
 # --- Entradas do usuário ---
