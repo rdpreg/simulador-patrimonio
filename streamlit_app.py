@@ -11,8 +11,10 @@ cols[0].image("https://drive.google.com/uc?id=1rlJl0tLEFCSgO3HJBkDq_ZmIRszjVOEw"
 cols[1].markdown("## Projção de Patrimônio")
 
 # --- Entradas do usuário ---
-patrimonio_inicial = st.number_input("Patrimônio Inicial (R$)", min_value=0.0, value=50000.0, step=1000.0)
+patrimonio_inicial = st.number_input("Patrimônio Inicial (R$)", min_value=0.0, value=50000.0, step=100.0)
+st.caption(f"Valor digitado: {formata_reais(patrimonio_inicial)}")
 aporte_mensal = st.number_input("Aporte Mensal (R$)", min_value=0.0, value=2000.0, step=100.0)
+st.caption(f"Valor digitado: {formata_reais(aporte_mensal)}")
 taxa_juros_anual = st.slider("Juros (% a.a.)", min_value=0.0, max_value=20.0, step=0.1, value=10.0)
 anos = st.slider("Prazo (anos)", min_value=1, max_value=50, value=20)
 
