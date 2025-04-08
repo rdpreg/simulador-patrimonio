@@ -20,31 +20,37 @@ taxa_mensal = st.number_input("Taxa de rendimento mensal (%)", min_value=0.0, ma
 prazo_anos = st.slider("Prazo para consumir o patrimônio (em anos)", 1, 50, 20)
 prazo_meses = prazo_anos * 12
 
+# Função de formatação
+def formata_reais(valor):
+    return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+
 # Botão de cálculo
-if st.button("Calcular Renda Mensal"):
+if st.button("Calcular Renda Mensal") and patrimonio_final > 0:
 
     # Cenário 1: Perpetuar patrimônio
-    renda_perpetua = patrimonio_final * taxa_mensal
+     renda_perpetua = patrimonio_final * taxa_mensal
+    patrimonio_perpetuo = [patrimonio_final for _ in range(prazo_meses + 1)]
 
     # Cenário 2: Renda até zerar (fórmula de saque mensal com prazo fixo)
     if taxa_mensal == 0:
-        renda_prazo_fixo = patrimonio_final / prazo_meses  # evita divisão por zero
+        renda_prazo_fixo = patrimonio_final / prazo_meses
+        patrimonio_prazo = [patrimonio_final - renda_prazo_fixo * mes for mes in range(prazo_meses + 1)]
     else:
         renda_prazo_fixo = patrimonio_final * (taxa_mensal * (1 + taxa_mensal) ** prazo_meses) / ((1 + taxa_mensal) ** prazo_meses - 1)
+        patrimonio_prazo = []
+        saldo = patrimonio_final
+        for _ in range(prazo_meses + 1):
+            patrimonio_prazo.append(saldo)
+            saldo = saldo * (1 + taxa_mensal) - renda_prazo_fixo
 
-    # Função de formatação
-    def formata_reais(valor):
-        return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
-
-    # Mostrar os dois resultados lado a lado
+    # Layout em colunas
     col1, col2 = st.columns(2)
 
     with col1:
         st.subheader(" Perpetuar o Patrimônio")
-        st.write(f"Renda mensal vitalícia estimada:")
+        st.write("Renda mensal vitalícia estimada:")
         st.success(formata_reais(renda_perpetua))
 
-        # Gráfico
         fig1, ax1 = plt.subplots()
         ax1.plot(range(prazo_meses + 1), patrimonio_perpetuo, label="Patrimônio", color="green")
         ax1.set_title("Evolução do Patrimônio (Perpétuo)")
@@ -58,7 +64,6 @@ if st.button("Calcular Renda Mensal"):
         st.write(f"Renda mensal por {prazo_anos} anos:")
         st.success(formata_reais(renda_prazo_fixo))
 
-        # Gráfico
         fig2, ax2 = plt.subplots()
         ax2.plot(range(prazo_meses + 1), patrimonio_prazo, label="Patrimônio", color="orange")
         ax2.set_title("Evolução do Patrimônio (Prazo Fixo)")
