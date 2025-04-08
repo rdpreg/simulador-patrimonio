@@ -6,7 +6,7 @@ st.set_page_config(page_title="Projeção de Patrimônio", layout="centered")
 
 # Cabeçalho com logo e título
 cols = st.columns([1, 4])
-cols[0].image("logo_empresa.png", width=100)  # Troque o nome se for diferente
+cols[0].image("https://drive.google.com/uc?id=1rlJl0tLEFCSgO3HJBkDq_ZmIRszjVOEw", width=100)  # Troque o nome se for diferente
 cols[1].markdown("## 💼 Projção de Patrimônio")
 
 # --- Entradas do usuário ---
