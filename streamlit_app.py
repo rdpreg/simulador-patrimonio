@@ -36,6 +36,7 @@ if st.button("Simular"):
         aporte_inicial = patrimonio_inicial
         aporte_recorrente = aporte_mensal * meses
         aporte_total = aporte_inicial + aporte_recorrente
+        aporte_total_mes = patrimonio_inicial + aporte_mensal * mes
         valores.append(vf)
         aportes.append(aporte_total_mes)
         
