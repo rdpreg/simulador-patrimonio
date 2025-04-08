@@ -4,7 +4,7 @@ import streamlit as st
 # Configuração da página
 st.set_page_config(page_title="Fase de Renda Passiva", layout="centered")
 
-st.title("💸 Simulador de Renda Passiva")
+st.title(" Simulador de Renda Passiva")
 
 st.markdown("""
 Este simulador calcula quanto você pode retirar mensalmente do seu patrimônio acumulado
