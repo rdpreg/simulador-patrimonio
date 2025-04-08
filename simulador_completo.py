@@ -2,11 +2,11 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Simulador Completo - Acúmulo + Renda", layout="centered")
+st.set_page_config(page_title="Projeção de Patrimônio (Acúmulo + Renda)", layout="centered")
 
-st.title("📊 Simulador de Patrimônio + Renda Passiva")
+st.title("Projeção de Patrimônio (Acúmulo + Renda)")
 
-st.markdown("### 🧱 Fase 1: Acúmulo de Patrimônio")
+st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
 # Inputs da fase de acúmulo
 aporte_inicial = st.number_input("Aporte Inicial (R$)", min_value=0.0, value=50000.0, step=1000.0)
@@ -15,7 +15,7 @@ taxa_juros_anual = st.slider("Taxa de Juros Anual (%)", min_value=0.0, max_value
 anos_acumulo = st.slider("Prazo de Acúmulo (anos)", 1, 50, 20)
 
 # Inputs da fase de renda
-st.markdown("### 💸 Fase 2: Renda Passiva")
+st.markdown("### Fase 2: Renda Passiva")
 anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
 modelo = st.radio("Modelo de Renda", ["Perpetuar o Patrimônio", "Gastar até zerar"])
 
@@ -56,7 +56,7 @@ if st.button("Simular"):
         return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
 
     # Resultados
-    st.markdown("### 📈 Resultado da Simulação")
+    st.markdown("### Resultado da Simulação")
     st.write(f"**Patrimônio final ao fim da fase de acúmulo:** {formata_reais(patrimonio_final)}")
     st.write(f"**Renda mensal estimada na fase de renda:** {formata_reais(renda_mensal)}")
 
