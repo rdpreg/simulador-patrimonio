@@ -1,6 +1,9 @@
 
 import streamlit as st
 import matplotlib.pyplot as plt
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+
 
 st.set_page_config(page_title="Projeção de Patrimônio", layout="centered")
 
@@ -32,9 +35,9 @@ if st.button("Simular"):
     juros = valores[-1] - aportes[-1]
 
     st.subheader("Resultado Final")
-    st.write(f"**Total Investido:** R$ {aportes[-1]:,.2f}")
-    st.write(f"**Patrimônio Acumulado:** R$ {valores[-1]:,.2f}")
-    st.write(f"**Juros Rendidos:** R$ {juros:,.2f}")
+    st.write(f"**Total Investido:** R$ {locale.format_string('%.2f', aportes[-1], grouping=True)}")
+    st.write(f"**Patrimônio Acumulado:** R$ {locale.format_string('%.2f', valores[-1], grouping=True)}")
+    st.write(f"**Juros Rendidos:** R$ {locale.format_string('%.2f', juros, grouping=True)}")
 
     # Gráfico
     fig, ax = plt.subplots(figsize=(10, 4))
