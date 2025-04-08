@@ -43,9 +43,11 @@ if st.button("Simular"):
 
     
     st.subheader("Resultado Final")
-    st.write(f"**Total Investido:** {formata_reais(aportes[-1])}")
+    st.write(f"**Aporte Inicial:** {formata_reais(aporte_inicial)}")
+    st.write(f"**Aportes Mensais:** {formata_reais(aporte_recorrente)}")
+    st.write(f"**Total Investido:** {formata_reais(aporte_total)}")
     st.write(f"**Patrimônio Acumulado:** {formata_reais(valores[-1])}")
-    st.write(f"**Juros Rendidos:** {formata_reais(juros)}")
+    st.write(f"**Juros Rendidos:** {formata_reais(valores[-1] - aporte_total)}")
 
 
     # Gráfico
