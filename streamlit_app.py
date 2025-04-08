@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Simulador de Patrimônio", layout="centered")
 
 # --- Cabeçalho com logo e título ---
-#col_logo, col_titulo = st.columns([1, 3])
+col_titulo = st.columns([1, 3])
 #with col_logo:
     #st.image("logo_empresa.png", width=100)  # Substitua pelo nome real do arquivo
 with col_titulo:
