@@ -29,7 +29,7 @@ if st.button("Calcular Renda Mensal") and patrimonio_final > 0:
 
     # Cenário 1: Perpetuar patrimônio
      renda_perpetua = patrimonio_final * taxa_mensal
-    patrimonio_perpetuo = [patrimonio_final for _ in range(prazo_meses + 1)]
+        patrimonio_perpetuo = [patrimonio_final for _ in range(prazo_meses + 1)]
 
     # Cenário 2: Renda até zerar (fórmula de saque mensal com prazo fixo)
     if taxa_mensal == 0:
