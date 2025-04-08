@@ -2,6 +2,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
+def formata_reais(valor):
+        return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+
 
 st.set_page_config(page_title="Projeção de Patrimônio", layout="centered")
 
@@ -35,13 +38,14 @@ if st.button("Simular"):
         aporte_total = aporte_inicial + aporte_recorrente
         valores.append(vf)
         aportes.append(aporte_total)
-
+        
+    #AQUI: separação dos aportes
+    aporte_inicial = patrimonio_inicial
+    aporte_recorrente = aporte_mensal * meses
+    aporte_total_final = aporte_inicial + aporte_recorrente    
     juros = valores[-1] - aportes[-1]
 
-    def formata_reais(valor):
-        return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
-
-    
+    #Exibição
     st.subheader("Resultado Final")
     st.write(f"**Aporte Inicial:** {formata_reais(aporte_inicial)}")
     st.write(f"**Aportes Mensais:** {formata_reais(aporte_recorrente)}")
