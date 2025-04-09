@@ -22,7 +22,8 @@ modelo = st.radio("Modelo de Renda", ["Perpetuar o Patrimônio", "Gastar até ze
 if st.button("Simular"):
     meses_acumulo = anos_acumulo * 12
     meses_renda = anos_renda * 12
-    taxa_mensal = taxa_juros_anual / 100 / 12
+    taxa_mensal = (1 + taxa_juros_anual / 100) ** (1/12) - 1
+
 
     # Fase 1 - Acúmulo
     valores = []
