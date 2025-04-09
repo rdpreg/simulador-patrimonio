@@ -9,7 +9,7 @@ st.title("Projeção de Patrimônio (Acúmulo + Renda)")
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
 # Inputs da fase de acúmulo
-ol1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
 
 with col1:
     aporte_inicial = st.number_input("Aporte Inicial (R$)", min_value=0.0, value=50000.0, step=100.0, format="%.2f")
