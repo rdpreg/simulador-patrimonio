@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from io import BytesIO
 import base64
-from weasyprint import HTML
-from gerador_pdf_html import gerar_pdf_html
 
 
     
