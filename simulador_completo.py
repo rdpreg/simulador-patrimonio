@@ -130,31 +130,31 @@ if st.button("Simular"):
     # Botão para gerar PDF
     import base64
 
-if st.button(" Gerar PDF"):
-    fig.savefig("grafico_simulador.png")
+    if st.button(" Gerar PDF"):
+        fig.savefig("grafico_simulador.png")
     
-    pdf = canvas.Canvas("relatorio_simulador.pdf", pagesize=letter)
-    width, height = letter
+        pdf = canvas.Canvas("relatorio_simulador.pdf", pagesize=letter)
+        width, height = letter
 
-    pdf.setFont("Helvetica-Bold", 14)
-    pdf.drawString(50, height - 50, "Relatório de Simulação - Convexa")
+        pdf.setFont("Helvetica-Bold", 14)
+        pdf.drawString(50, height - 50, "Relatório de Simulação - Convexa")
 
-    pdf.setFont("Helvetica", 12)
-    pdf.drawString(50, height - 90, f"Aporte Inicial: R$ {formata_reais(aporte_inicial)}")
-    pdf.drawString(50, height - 110, f"Aporte Mensal: R$ {formata_reais(aporte_mensal)}")
-    pdf.drawString(50, height - 130, f"Taxa de Juros Anual: {taxa_juros_anual:.2f}%")
-    pdf.drawString(50, height - 150, f"Prazo de Acúmulo: {anos_acumulo} anos")
-    pdf.drawString(50, height - 190, f"Patrimônio Final: R$ {formata_reais(patrimonio_final)}")
+        pdf.setFont("Helvetica", 12)
+        pdf.drawString(50, height - 90, f"Aporte Inicial: R$ {formata_reais(aporte_inicial)}")
+        pdf.drawString(50, height - 110, f"Aporte Mensal: R$ {formata_reais(aporte_mensal)}")
+        pdf.drawString(50, height - 130, f"Taxa de Juros Anual: {taxa_juros_anual:.2f}%")
+        pdf.drawString(50, height - 150, f"Prazo de Acúmulo: {anos_acumulo} anos")
+        pdf.drawString(50, height - 190, f"Patrimônio Final: R$ {formata_reais(patrimonio_final)}")
 
-    if os.path.exists("grafico_simulador.png"):
-        pdf.drawImage("grafico_simulador.png", 50, height - 500, width=500, preserveAspectRatio=True)
+        if os.path.exists("grafico_simulador.png"):
+            pdf.drawImage("grafico_simulador.png", 50, height - 500, width=500, preserveAspectRatio=True)
 
-    pdf.save()
+        pdf.save()
 
-    # Lê o PDF gerado e transforma em base64
-    with open("relatorio_simulador.pdf", "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        # Lê o PDF gerado e transforma em base64
+        with open("relatorio_simulador.pdf", "rb") as f:
+            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
     
-    # Cria botão de download
-    href = f'<a href="data:application/pdf;base64,{base64_pdf}" download="relatorio_simulador.pdf">📥 Clique aqui para baixar o PDF</a>'
-    st.markdown(href, unsafe_allow_html=True)
+        # Cria botão de download
+        href = f'<a href="data:application/pdf;base64,{base64_pdf}" download="relatorio_simulador.pdf">📥 Clique aqui para baixar o PDF</a>'
+        st.markdown(href, unsafe_allow_html=True)
