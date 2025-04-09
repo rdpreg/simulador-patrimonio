@@ -114,7 +114,7 @@ if st.button("Simular"):
 
     ax.set_xlabel("Anos")
     ax.set_ylabel("Valor (R$)")
-    ax.yaxis.set_major_formatter(mtick.StrMethodFormatter("R$ {x:,.0f}"))
+    ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"R$ {x:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")))
     ax.legend()
     ax.grid(True)
     st.pyplot(fig)
