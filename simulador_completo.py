@@ -2,10 +2,9 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from io import BytesIO
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.utils import ImageReader
 import base64
+from gerador_pdf_html import gerar_pdf_html
+
 
 
 def formata_reais(valor):
