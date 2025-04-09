@@ -17,7 +17,7 @@ anos_acumulo = st.slider("Prazo de Acúmulo (anos)", 1, 50, 20)
 # Inputs da fase de renda
 st.markdown("### Fase 2: Renda Passiva")
 anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
-st.markdown("#### Modelo de Renda")
+st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
 modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
 
 
