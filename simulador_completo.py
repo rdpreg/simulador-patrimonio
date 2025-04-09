@@ -43,7 +43,7 @@ modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patr
 
 
 # Taxa de rendimento exclusiva para a fase de renda
-taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
+#taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
 
 
 if st.button("Simular"):
