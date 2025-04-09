@@ -17,7 +17,7 @@ anos_acumulo = st.slider("Prazo de Acúmulo (anos)", 1, 50, 20)
 # Inputs da fase de renda
 st.markdown("### Fase 2: Renda Passiva")
 anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
-modelo = st.radio("Modelo de Renda", ["Perpetuar o Patrimônio", "Gastar até zerar"])
+modelo = st.radio("#### Modelo de Renda", ["Perpetuar o Patrimônio", "Gastar até zerar"])
 
 # Taxa de rendimento exclusiva para a fase de renda
 taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
