@@ -18,7 +18,7 @@ anos_acumulo = st.slider("Prazo de Acúmulo (anos)", 1, 50, 20)
 st.markdown("### Fase 2: Renda Passiva")
 anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
 st.markdown("#### Modelo de Renda")
-modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Gastar até zerar"])
+modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
 
 
 # Taxa de rendimento exclusiva para a fase de renda
