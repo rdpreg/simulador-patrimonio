@@ -1,6 +1,8 @@
 
 import streamlit as st
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+
 
 def formata_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
@@ -101,17 +103,18 @@ if st.button("Simular"):
     # Gráfico das duas fases
     st.markdown("### Evolução do Patrimônio")
     # Eixo X em anos
-anos_acumulo = [m / 12 for m in range(meses_acumulo + 1)]
-anos_renda = [m / 12 for m in range(meses_renda + 1)]
-anos_renda_offset = [m / 12 + anos_acumulo[-1] for m in range(meses_renda + 1)]
+    anos_acumulo = [m / 12 for m in range(meses_acumulo + 1)]
+    anos_renda = [m / 12 for m in range(meses_renda + 1)]
+    anos_renda_offset = [m / 12 + anos_acumulo[-1] for m in range(meses_renda + 1)]
 
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(anos_acumulo, valores, label="Acúmulo", color="green")
-ax.plot(anos_renda_offset, patrimonio_perpetuo, label="Renda (Perpétua)", linestyle="--", color="blue")
-ax.plot(anos_renda_offset, patrimonio_consumo, label="Renda (Consumo Total)", linestyle=":", color="red")
+    fig, ax = plt.subplots(figsize=(10, 4))
+    ax.plot(anos_acumulo, valores, label="Acúmulo", color="green")
+    ax.plot(anos_renda_offset, patrimonio_perpetuo, label="Renda (Perpétua)", linestyle="--", color="blue")
+    ax.plot(anos_renda_offset, patrimonio_consumo, label="Renda (Consumo Total)", linestyle=":", color="red")
 
-ax.set_xlabel("Anos")
-ax.set_ylabel("Valor (R$)")
-ax.legend()
-ax.grid(True)
-st.pyplot(fig)
+    ax.set_xlabel("Anos")
+    ax.set_ylabel("Valor (R$)")
+    ax.yaxis.set_major_formatter(mtick.StrMethodFormatter("R$ {x:,.0f}"))
+    ax.legend()
+    ax.grid(True)
+    st.pyplot(fig)
