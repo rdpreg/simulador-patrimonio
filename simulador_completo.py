@@ -114,38 +114,4 @@ if "simulacao" in st.session_state:
     ax.grid(True)
     st.pyplot(fig)
 
-    # PDF
-
-    if st.button("Gerar PDF"):
-        # Salvar gráfico em memória
-        buffer_grafico = BytesIO()
-        fig.savefig(buffer_grafico, format="png")
-        buffer_grafico.seek(0)
-
-        # Criar PDF em memória
-        buffer_pdf = BytesIO()
-        pdf = canvas.Canvas(buffer_pdf, pagesize=A4)
-        width, height = A4
-
-        pdf.setFont("Helvetica-Bold", 14)
-        pdf.drawString(50, height - 50, "Relatório de Simulação - Convexa")
-
-        pdf.setFont("Helvetica", 12)
-        pdf.drawString(50, height - 90, f"Aporte Inicial: {formata_reais(aporte_inicial)}")
-        pdf.drawString(50, height - 110, f"Aporte Mensal: {formata_reais(aporte_mensal)}")
-        pdf.drawString(50, height - 130, f"Taxa de Juros Anual: {taxa_juros_anual:.2f}%")
-        pdf.drawString(50, height - 150, f"Prazo de Acúmulo: {anos_acumulo} anos")
-        pdf.drawString(50, height - 170, f"Patrimônio Final: {formata_reais(sim['patrimonio_final'])}")
-        pdf.drawString(50, height - 190, f"Renda Perpétua: {formata_reais(sim['renda_perpetua'])}")
-        pdf.drawString(50, height - 210, f"Renda com Consumo Total: {formata_reais(sim['renda_consumo'])}")
-
-        # Gráfico
-        img = ImageReader(buffer_grafico)
-        pdf.drawImage(img, 50, height - 500, width=500, preserveAspectRatio=True, mask='auto')
-
-        pdf.save()
-        buffer_pdf.seek(0)
-
-        # Baixar como base64
-        base64_pdf = base64.b64encode(buffer_pdf.read()).decode("utf-8")
-        st.markdown(f'<a href="data:application/pdf;base64,{base64_pdf}" download="relatorio_simulador.pdf">📥 Clique aqui para baixar o PDF</a>', unsafe_allow_html=True)
+    
