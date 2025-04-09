@@ -3,6 +3,12 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 
+#Geração do relatório
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from io import BytesIO
+import base64
+
 
 def formata_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
@@ -118,3 +124,43 @@ if st.button("Simular"):
     ax.legend()
     ax.grid(True)
     st.pyplot(fig)
+
+    
+
+    # Botão para gerar PDF
+    if st.button("📄 Gerar PDF do Relatório"):
+    # Salvar gráfico
+    fig.savefig("grafico_simulador.png")
+
+    # Criar PDF
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(50, height - 50, "Relatório de Simulação de Patrimônio")
+
+    c.setFont("Helvetica", 12)
+    y = height - 90
+    c.drawString(50, y, f"Patrimônio Final Acumulado: {formata_reais(patrimonio_final)}")
+    y -= 20
+    c.drawString(50, y, f"Renda mensal (Perpétua): {formata_reais(renda_perpetua)}")
+    y -= 20
+    c.drawString(50, y, f"Renda mensal (Consumir até zerar): {formata_reais(renda_consumo)}")
+    y -= 20
+    c.drawString(50, y, f"Prazo de Renda: {anos_renda} anos")
+    y -= 20
+    c.drawString(50, y, f"Taxa anual da fase de renda: {taxa_renda_anual_equivalente:.2%}")
+
+    # Inserir gráfico
+    if os.path.exists("grafico_simulador.png"):
+        c.drawImage("grafico_simulador.png", 50, y - 280, width=500, preserveAspectRatio=True)
+
+    c.save()
+
+    # Download do PDF
+    buffer.seek(0)
+    b64_pdf = base64.b64encode(buffer.read()).decode('utf-8')
+    href = f'<a href="data:application/octet-stream;base64,{b64_pdf}" download="relatorio_simulador.pdf">📥 Clique aqui para baixar o PDF</a>'
+    st.markdown(href, unsafe_allow_html=True)
+
