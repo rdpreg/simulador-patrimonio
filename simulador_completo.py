@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(page_title="Projeção de Patrimônio (Acúmulo + Renda)", layout="centered")
 
-st.title("Projeção de Patrimônio (Acúmulo + Renda)")
+st.title("Projeção de Patrimônio")
+st.markdown("### Acúmulo + Renda")
 
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
