@@ -9,8 +9,13 @@ st.title("Projeção de Patrimônio (Acúmulo + Renda)")
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
 # Inputs da fase de acúmulo
-aporte_inicial = st.number_input("Aporte Inicial (R$)", min_value=0.0, value=50000.0, step=1000.0)
-aporte_mensal = st.number_input("Aporte Mensal (R$)", min_value=0.0, value=2000.0, step=100.0)
+ol1, col2 = st.columns(2)
+
+with col1:
+    aporte_inicial = st.number_input("Aporte Inicial (R$)", min_value=0.0, value=50000.0, step=100.0, format="%.2f")
+
+with col2:
+    aporte_mensal = st.number_input("Aporte Mensal (R$)", min_value=0.0, value=2000.0, step=100.0, format="%.2f")
 taxa_juros_anual = st.slider("Taxa de Juros Anual (%)", min_value=0.0, max_value=20.0, step=0.1, value=10.0)
 anos_acumulo = st.slider("Prazo de Acúmulo (anos)", 1, 50, 20)
 
