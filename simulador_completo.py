@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Projeção de Patrimônio (Acúmulo + Renda)", layout="centered")
 
 st.markdown("""
-<h1 style='margin-bottom: 0.5rem;'>Projeção de Patrimônio</h1>
+<h1 style='margin-bottom: 0.2rem;'>Projeção de Patrimônio</h1>
 <h4 style='margin-top: 0.2rem; margin-bottom: 0.3rem;'>Acúmulo + Renda</h4>
 """, unsafe_allow_html=True)
 
