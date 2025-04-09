@@ -19,6 +19,10 @@ st.markdown("### Fase 2: Renda Passiva")
 anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
 modelo = st.radio("Modelo de Renda", ["Perpetuar o Patrimônio", "Gastar até zerar"])
 
+# NOVO: Taxa de rendimento exclusiva para a fase de renda
+taxa_renda_anual = st.slider("Taxa anual de rendimento na fase de renda (%)", 0.0, 20.0, 10.0, step=0.1)
+taxa_renda_mensal = (1 + taxa_renda_anual / 100) ** (1/12) - 1
+
 if st.button("Simular"):
     meses_acumulo = anos_acumulo * 12
     meses_renda = anos_renda * 12
@@ -28,7 +32,7 @@ if st.button("Simular"):
     # Fase 1 - Acúmulo
     valores = []
     for mes in range(meses_acumulo + 1):
-        vf = aporte_inicial * (1 + taxa_mensal) ** mes +              aporte_mensal * (((1 + taxa_mensal) ** mes - 1) / taxa_mensal)
+        vf = aporte_inicial * (1 + taxa_mensal) ** mes + aporte_mensal * (((1 + taxa_mensal) ** mes - 1) / taxa_mensal)
         valores.append(vf)
 
     patrimonio_final = valores[-1]
@@ -36,7 +40,7 @@ if st.button("Simular"):
     # Fase 2 - Renda
     patrimonio_renda = []
     if modelo == "Perpetuar o Patrimônio":
-        renda_mensal = patrimonio_final * taxa_mensal
+        renda_mensal = patrimonio_final * taxa_renda_mensal
         patrimonio_renda = [patrimonio_final for _ in range(meses_renda + 1)]
     else:
         if taxa_mensal == 0:
