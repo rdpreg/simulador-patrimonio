@@ -27,6 +27,8 @@ if st.button("Simular"):
     meses_acumulo = anos_acumulo * 12
     meses_renda = anos_renda * 12
     taxa_mensal = (1 + taxa_juros_anual / 100) ** (1/12) - 1
+    taxa_renda_anual_equivalente = (1 + taxa_renda_mensal) ** 12 - 1
+    
 
 
     # Fase 1 - Acúmulo
@@ -62,8 +64,9 @@ if st.button("Simular"):
 
     # Resultados
     st.markdown("### Resultado da Simulação")
-    st.write(f"**Patrimônio final ao fim da fase de acúmulo:** {formata_reais(patrimonio_final)}")
+    st.write(f"**Patrimônio ao final da fase de acúmulo:** {formata_reais(patrimonio_final)}")
     st.write(f"**Renda mensal estimada na fase de renda:** {formata_reais(renda_mensal)}")
+    st.write(f"**Taxa anual equivalente da fase de renda:** {taxa_renda_anual_equivalente * 100:.2f}%")
 
     # Gráfico final
     fig, ax = plt.subplots(figsize=(10, 4))
