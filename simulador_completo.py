@@ -42,21 +42,19 @@ with col2:
     taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
 
 # Título separado com menos espaçamento
-st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
-modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
+st.markdown("<h4 style='margin-bottom: 0.8rem;'>Simulações de Renda</h4>", unsafe_allow_html=True)
 
-
-# Taxa de rendimento exclusiva para a fase de renda
-#taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
+#st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
+#modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
 
 
 if st.button("Simular"):
     meses_acumulo = anos_acumulo * 12
     meses_renda = anos_renda * 12
+
+    # Taxas equivalentes
     taxa_mensal = (1 + taxa_juros_anual / 100) ** (1/12) - 1
     taxa_renda_anual_equivalente = (1 + taxa_renda_mensal) ** 12 - 1
-    
-
 
     # Fase 1 - Acúmulo
     valores = []
@@ -66,42 +64,50 @@ if st.button("Simular"):
 
     patrimonio_final = valores[-1]
 
-    # Fase 2 - Renda
-    patrimonio_renda = []
-    if modelo == "Perpetuar o Patrimônio":
-        renda_mensal = patrimonio_final * taxa_renda_mensal
-        patrimonio_renda = [patrimonio_final for _ in range(meses_renda + 1)]
+    st.markdown("### Resultado da Fase de Acúmulo")
+    st.write(f"- **Patrimônio final ao fim da fase de acúmulo:** {formata_reais(patrimonio_final)}")
+
+    # Fase 2 - Simulação de Renda (2 modelos)
+
+    # 1. Perpetuar o Patrimônio
+    renda_perpetua = patrimonio_final * taxa_renda_mensal
+    patrimonio_perpetuo = [patrimonio_final for _ in range(meses_renda + 1)]
+
+    # 2. Consumir o Patrimônio todo
+    if taxa_renda_mensal > 0:
+        renda_consumo = patrimonio_final * (taxa_renda_mensal * (1 + taxa_renda_mensal) ** meses_renda) / ((1 + taxa_renda_mensal) ** meses_renda - 1)
     else:
-        if taxa_mensal == 0:
-            renda_mensal = patrimonio_final / meses_renda
-            patrimonio_renda = [patrimonio_final - renda_mensal * m for m in range(meses_renda + 1)]
-        else:
-            renda_mensal = patrimonio_final * (taxa_mensal * (1 + taxa_mensal) ** meses_renda) / ((1 + taxa_mensal) ** meses_renda - 1)
-            saldo = patrimonio_final
-            for _ in range(meses_renda + 1):
-                patrimonio_renda.append(saldo)
-                saldo = saldo * (1 + taxa_mensal) - renda_mensal
+        renda_consumo = patrimonio_final / meses_renda
 
-    # Concatenar fases para o gráfico completo
-    patrimonio_total = valores + patrimonio_renda[1:]  # remove duplicação no ponto de transição
+    saldo = patrimonio_final
+    patrimonio_consumo = []
+    for _ in range(meses_renda + 1):
+        patrimonio_consumo.append(saldo)
+        saldo = saldo * (1 + taxa_renda_mensal) - renda_consumo
 
-    # Função de formatação
-    def formata_reais(valor):
-        return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+    # Exibir os dois resultados lado a lado
+    st.markdown("### Resultado da Fase de Renda")
+    col1, col2 = st.columns(2)
 
-    # Resultados
-    st.markdown("### Resultado da Simulação")
-    st.write(f"**Patrimônio ao final da fase de acúmulo:** {formata_reais(patrimonio_final)}")
-    st.write(f"**Renda mensal estimada na fase de renda:** {formata_reais(renda_mensal)}")
-    st.write(f"**Taxa anual equivalente da fase de renda:** {taxa_renda_anual_equivalente * 100:.2f}%")
+    with col1:
+        st.subheader(" Perpetuar o Patrimônio")
+        st.write(f"Renda mensal estimada: **{formata_reais(renda_perpetua)}**")
+        st.write(f"Taxa anual: **{taxa_renda_anual_equivalente:.2%}**")
 
-    # Gráfico final
+    with col2:
+        st.subheader(" Consumir o Patrimônio todo")
+        st.write(f"Renda mensal estimada: **{formata_reais(renda_consumo)}**")
+        st.write(f"Prazo: **{anos_renda} anos**")
+        st.write(f"Taxa anual: **{taxa_renda_anual_equivalente:.2%}**")
+
+    # Gráfico das duas fases
+    st.markdown("### Evolução do Patrimônio")
     fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(range(len(patrimonio_total)), patrimonio_total, label="Evolução do Patrimônio", color="green")
-    ax.axvline(x=meses_acumulo, color='gray', linestyle='--', label="Início da Renda")
+    ax.plot(range(meses_acumulo + 1), valores, label="Acúmulo", color="green")
+    ax.plot(range(meses_acumulo, meses_acumulo + meses_renda + 1), patrimonio_perpetuo, label="Renda (Perpétua)", linestyle="--", color="blue")
+    ax.plot(range(meses_acumulo, meses_acumulo + meses_renda + 1), patrimonio_consumo, label="Renda (Consumo Total)", linestyle=":", color="red")
     ax.set_xlabel("Meses")
     ax.set_ylabel("Valor (R$)")
-    ax.set_title("Simulação Completa: Acúmulo + Renda")
     ax.legend()
     ax.grid(True)
     st.pyplot(fig)
