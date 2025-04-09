@@ -100,17 +100,18 @@ if st.button("Simular"):
 
     # Gráfico das duas fases
     st.markdown("### Evolução do Patrimônio")
-    # Criar eixo X em anos
-    total_meses = meses_acumulo + meses_renda
-    anos = [m / 12 for m in range(total_meses + 1)]
+    # Eixo X em anos
+anos_acumulo = [m / 12 for m in range(meses_acumulo + 1)]
+anos_renda = [m / 12 for m in range(meses_renda + 1)]
+anos_renda_offset = [m / 12 + anos_acumulo[-1] for m in range(meses_renda + 1)]
 
-    fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(anos[:meses_acumulo + 1], valores, label="Acúmulo", color="green")
-    ax.plot(anos[meses_acumulo:meses_acumulo + meses_renda + 1], patrimonio_perpetuo, label="Renda (Perpétua)", linestyle="--", color="blue")
-    ax.plot(anos[meses_acumulo:meses_acumulo + meses_renda + 1], patrimonio_consumo, label="Renda (Consumo Total)", linestyle=":", color="red")
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(anos_acumulo, valores, label="Acúmulo", color="green")
+ax.plot(anos_renda_offset, patrimonio_perpetuo, label="Renda (Perpétua)", linestyle="--", color="blue")
+ax.plot(anos_renda_offset, patrimonio_consumo, label="Renda (Consumo Total)", linestyle=":", color="red")
 
-    ax.set_xlabel("Anos")
-    ax.set_ylabel("Valor (R$)")
-    ax.legend()
-    ax.grid(True)
-    st.pyplot(fig)
+ax.set_xlabel("Anos")
+ax.set_ylabel("Valor (R$)")
+ax.legend()
+ax.grid(True)
+st.pyplot(fig)
