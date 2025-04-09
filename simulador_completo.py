@@ -102,7 +102,7 @@ if "simulacao" in st.session_state:
     st.write(f"- Aporte inicial: {formata_reais(aporte_inicial)}")
     st.write(f"- Total investido (incluindo aportes mensais): {formata_reais(total_investido)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(total_rendimentos)}")
-    )
+   
 
     st.markdown("### Resultado da Fase de Renda")
     col1, col2 = st.columns(2)
