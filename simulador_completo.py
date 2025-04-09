@@ -45,12 +45,6 @@ with col1:
 with col2:
     taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
 
-# Título separado com menos espaçamento
-#st.markdown("<h4 style='margin-bottom: 0.8rem;'>Simulações de Renda</h4>", unsafe_allow_html=True)
-
-#st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
-#modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
-
 
 if st.button("Simular"):
     meses_acumulo = anos_acumulo * 12
@@ -99,10 +93,10 @@ if st.button("Simular"):
         st.write(f"Taxa anual: **{taxa_renda_anual_equivalente:.2%}**")
 
     with col2:
-        st.subheader(" Consumir o Patrimônio todo")
+        st.subheader(" Consumo Total")
         st.write(f"Renda mensal estimada: **{formata_reais(renda_consumo)}**")
         st.write(f"Prazo: **{anos_renda} anos**")
-        st.write(f"Taxa anual: **{taxa_renda_anual_equivalente:.2%}**")
+        
 
     # Gráfico das duas fases
     st.markdown("### Evolução do Patrimônio")
