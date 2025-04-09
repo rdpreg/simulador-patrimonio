@@ -99,9 +99,9 @@ if "simulacao" in st.session_state:
 
     # Exibir resultados
     st.write(f"- **Patrimônio final ao fim da fase de acúmulo:** {formata_reais(patrimonio_final)}")
-    st.write(f"- Aporte inicial: {formata_reais(aporte_inicial)}")
-    st.write(f"- Total investido (incluindo aportes mensais): {formata_reais(total_investido)}")
-    st.write(f"- Total de rendimentos acumulados: {formata_reais(total_rendimentos)}")
+    st.write(f"- **Aporte inicial:** {formata_reais(aporte_inicial)}")
+    st.write(f"- **Total investido:** (incluindo aportes mensais): {formata_reais(total_investido)}")
+    st.write(f"- **Total de rendimentos acumulados:** {formata_reais(total_rendimentos)}")
    
 
     st.markdown("### Resultado da Fase de Renda")
