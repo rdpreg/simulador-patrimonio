@@ -14,7 +14,7 @@ def formata_reais(valor):
 st.set_page_config(page_title="Projeção de Patrimônio (Acúmulo + Renda)", layout="centered")
 
 # Mostrar o logo da Convexa
-st.image("Convexa-logo.png", width=180)
+st.image("Convexa-logo.png", width=250)
 
 st.markdown("""
 <h1 style='margin-bottom: 0.0rem;'>Projeção de Patrimônio</h1>
