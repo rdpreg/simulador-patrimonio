@@ -2,6 +2,10 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 
+def formata_reais(valor):
+    return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+
+
 st.set_page_config(page_title="Projeção de Patrimônio (Acúmulo + Renda)", layout="centered")
 
 st.markdown("""
@@ -42,7 +46,7 @@ with col2:
     taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
 
 # Título separado com menos espaçamento
-st.markdown("<h4 style='margin-bottom: 0.8rem;'>Simulações de Renda</h4>", unsafe_allow_html=True)
+#st.markdown("<h4 style='margin-bottom: 0.8rem;'>Simulações de Renda</h4>", unsafe_allow_html=True)
 
 #st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
 #modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
