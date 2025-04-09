@@ -1,9 +1,10 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from io import BytesIO
 import base64
-from gerar_pdf import gerar_pdf
+
 
     
 def formata_reais(valor):
@@ -113,19 +114,5 @@ if "simulacao" in st.session_state:
     ax.legend()
     ax.grid(True)
     st.pyplot(fig)
-
-    if st.button("📄 Gerar PDF com os resultados"):
-        buffer_pdf = gerar_pdf(
-            sim=st.session_state["simulacao"],
-            aporte_inicial=aporte_inicial,
-            aporte_mensal=aporte_mensal,
-            taxa_juros_anual=taxa_juros_anual,
-            anos_acumulo=anos_acumulo
-        )
-        base64_pdf = base64.b64encode(buffer_pdf.read()).decode("utf-8")
-        st.markdown(
-            f'<a href="data:application/pdf;base64,{base64_pdf}" download="relatorio_simulador.pdf">📥 Clique aqui para baixar o PDF</a>',
-            unsafe_allow_html=True
-        )
 
     
