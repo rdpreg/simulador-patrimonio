@@ -90,7 +90,19 @@ if "simulacao" in st.session_state:
     sim = st.session_state["simulacao"]
 
     st.markdown("### Resultado da Fase de Acúmulo")
-    st.write(f"- **Patrimônio final ao fim da fase de acúmulo:** {formata_reais(sim['patrimonio_final'])}")
+
+    # Calcular valores
+    patrimonio_final = sim['patrimonio_final']
+    meses_aporte = anos_acumulo * 12
+    total_investido = aporte_inicial + (aporte_mensal * meses_aporte)
+    total_rendimentos = patrimonio_final - total_investido
+
+    # Exibir resultados
+    st.write(f"- **Patrimônio final ao fim da fase de acúmulo:** {formata_reais(patrimonio_final)}")
+    st.write(f"- Aporte inicial: {formata_reais(aporte_inicial)}")
+    st.write(f"- Total investido (incluindo aportes mensais): {formata_reais(total_investido)}")
+    st.write(f"- Total de rendimentos acumulados: {formata_reais(total_rendimentos)}")
+    )
 
     st.markdown("### Resultado da Fase de Renda")
     col1, col2 = st.columns(2)
