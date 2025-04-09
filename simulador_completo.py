@@ -42,12 +42,6 @@ st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_al
 modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
 
 
-#st.markdown("### Fase 2: Renda Passiva")
-#anos_renda = st.slider("Prazo da Fase de Renda (anos)", 1, 50, 20)
-#st.markdown("<h4 style='margin-bottom: 0.3rem;'>Modelo de Renda</h4>", unsafe_allow_html=True)
-#modelo = st.radio(label="", options=["Perpetuar o Patrimônio", "Consumir o Patrimônio todo"])
-
-
 # Taxa de rendimento exclusiva para a fase de renda
 taxa_renda_mensal = st.number_input("Taxa mensal na fase de renda (% ao mês)", min_value=0.0, max_value=5.0, value=0.5, step=0.01) / 100
 
