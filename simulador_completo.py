@@ -9,11 +9,6 @@ st.markdown("""
 <h4 style='margin-top: -0.5rem; margin-bottom: 0.3rem;'>Acúmulo + Renda</h4>
 """, unsafe_allow_html=True)
 
-#st.title("Projeção de Patrimônio")
-#st.markdown("<h4 style='margin-bottom: 0.3rem;'>Acúmulo + Renda</h4>", unsafe_allow_html=True)
-
-
-#st.markdown("### Acúmulo + Renda")
 
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
