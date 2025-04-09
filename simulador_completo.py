@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from io import BytesIO
 import base64
+from weasyprint import HTML
 from gerador_pdf_html import gerar_pdf_html
 
 
-
+def gerar_pdf_html(sim, aporte_inicial, aporte_mensal, taxa_juros_anual, anos_acumulo):
+    
 def formata_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
 
