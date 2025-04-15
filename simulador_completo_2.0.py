@@ -55,9 +55,11 @@ if st.button("Simular Acúmulo"):
 
     #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
+    valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
     df = pd.DataFrame({
         "Ano": anos,
         "Patrimônio (R$)": valores
+        "Patrimônio BR": valores_formatados  # usado para tooltip
     })
 
     # Criar valores personalizados pro eixo Y com formato brasileiro
@@ -74,7 +76,8 @@ if st.button("Simular Acúmulo"):
 
     fig.update_traces(
         line=dict(color="green"),
-        hovertemplate="<b>Ano:</b> %{x:.1f}<br><b>Patrimônio:</b> R$ %{y:.2f}<extra></extra>"
+        customdata=df[["Patrimônio BR"]],
+        hovertemplate="<b>Ano:</b> %{x:.1f}<br><b>Patrimônio:</b> %{customdata[0]}<extra></extra>"
     )
 
     fig.update_layout(
