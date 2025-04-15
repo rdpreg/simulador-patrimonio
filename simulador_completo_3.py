@@ -7,7 +7,7 @@ def formata_reais(valor):
     return f"R$ {valor:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
 
 st.set_page_config(page_title="Simulador de Patrimônio (Fase 1 - Acúmulo)", layout="centered")
-st.image("Convexa-logo.png", width=350)
+st.image("Convexa-logo.png", width=300)
 st.markdown("<h1 style='margin-bottom: 0.0rem;'>Simulador de Patrimônio</h1>", unsafe_allow_html=True)
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
