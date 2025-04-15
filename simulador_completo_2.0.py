@@ -58,7 +58,7 @@ if st.button("Simular Acúmulo"):
     valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
     df = pd.DataFrame({
         "Ano": anos,
-        "Patrimônio (R$)": valores
+        "Patrimônio (R$)": valores,
         "Patrimônio BR": valores_formatados  # usado para tooltip
     })
 
