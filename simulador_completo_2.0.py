@@ -16,7 +16,6 @@ st.image("Convexa-logo.png", width=180)
 
 st.markdown("""
 <h1 style='margin-bottom: 0.0rem;'>Simulador de Patrimônio</h1>
-<h4 style='margin-top: -0.5rem; margin-bottom: 0.3rem;'>Fase 1: Acúmulo</h4>
 """, unsafe_allow_html=True)
 
 # FASE 1 - Inputs
