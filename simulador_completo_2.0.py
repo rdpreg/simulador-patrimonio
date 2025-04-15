@@ -56,24 +56,32 @@ if st.button("Simular Acúmulo"):
 
     #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
-    df = pd.DataFrame({
+        df = pd.DataFrame({
         "Ano": anos,
-        "Patrimônio": valores
+        "Patrimônio (R$)": valores
     })
 
     fig = px.line(
         df,
         x="Ano",
-        y="Patrimônio",
+        y="Patrimônio (R$)",
         title="Evolução do Patrimônio Acumulado",
         markers=True
     )
 
     fig.update_traces(line=dict(color="green"))
+
     fig.update_layout(
-        yaxis_tickformat="R$,.2f",
-        hoverlabel=dict(bgcolor="white", font_size=14),
-        hovermode="x unified"
+        hovermode="x unified",
+        title_font_size=18,
+        font=dict(family="Arial", size=14),
+        yaxis=dict(
+            tickprefix="R$ ",
+            tickformat=",.",
+        ),
+        xaxis_title="Ano",
+        yaxis_title="Valor acumulado",
+        margin=dict(t=50, l=50, r=30, b=50)
     )
 
     st.plotly_chart(fig, use_container_width=True)
