@@ -81,7 +81,8 @@ if st.button("Simular Acúmulo"):
         name='',
         line=dict(color="green"),
         customdata=df[["Ano BR", "Patrimônio BR"]],
-        hovertemplate="<b>Ano:</b> %{x:.1f}<br><b>Patrimônio:</b> %{customdata[0]}<extra></extra>"
+        hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
+        
     )
 
     fig.update_layout(
