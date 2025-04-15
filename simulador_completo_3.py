@@ -56,10 +56,16 @@ if st.button("Simular Acúmulo"):
         ano_atingido = None
         for i, v in enumerate(valores):
             if v >= meta_valor:
-                ano_atingido = i // 12
-                break
-        if ano_atingido is not None and ano_atingido <= anos_acumulo:
-            st.success(f"🎯 Você alcançará seu objetivo em aproximadamente **{ano_atingido} anos**.")
+                meses_atingido = i
+                anos_cheios = meses_atingido // 12
+                meses_restantes = meses_atingido % 12
+
+                texto_meta = f"🎯 Você alcançará seu objetivo em **{anos_cheios} anos"
+                if meses_restantes > 0:
+                    texto_meta += f" e {meses_restantes} meses"
+                texto_meta += "**."
+
+                st.success(texto_meta)
         else:
             st.warning("⚠️ Com os parâmetros atuais, a meta **não será atingida** no período simulado.")
 
