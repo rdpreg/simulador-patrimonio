@@ -52,6 +52,11 @@ if st.button("Simular Acúmulo"):
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
 
+
+    anos = [m / 12 for m in range(meses_acumulo + 1)]
+    anos_formatados = [f"{a:.1f}".replace(".", ",") for a in anos]
+    valores_formatados = [formata_reais(v) for v in valores]
+    
     if meta_valor > 0:
         st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
         ano_atingido = None
