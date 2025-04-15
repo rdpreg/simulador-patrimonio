@@ -84,7 +84,7 @@ if st.button("Simular Acúmulo"):
         name="Legenda",  # remove título solto
         line=dict(color="green"),
         customdata=df[["Ano BR", "Patrimônio BR"]],
-        hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
+        hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra>Teste</extra>"
     )
 
     fig.update_layout(
