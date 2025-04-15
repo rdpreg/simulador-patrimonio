@@ -45,30 +45,21 @@ if st.button("Simular Acúmulo"):
     total_aportes = aporte_inicial + (aporte_mensal * meses_acumulo)
     rendimento_total = patrimonio_final - total_aportes
 
-    #Relatório da projeção
     st.markdown("### Resultado da Fase de Acúmulo")
     st.write(f"- **Patrimônio final ao fim do período:** {formata_reais(patrimonio_final)}")
     st.write(f"- Aporte inicial: {formata_reais(aporte_inicial)}")
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
-    
+
     if meta_valor > 0:
         st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
         ano_atingido = None
         for i, v in enumerate(valores):
             if v >= meta_valor:
-                meses_atingido = i
+                ano_atingido = i // 12
                 break
-
-        if meses_atingido is not None and meses_atingido <= meses_acumulo:
-            anos_cheios = meses_atingido // 12
-            meses_restantes = meses_atingido % 12
-            texto_meta = f"🎯 Você alcançará seu objetivo em **{anos_cheios} anos"
-            if meses_restantes > 0:
-                texto_meta += f" e {meses_restantes} meses"
-            texto_meta += "**."
-
-            st.success(texto_meta)
+        if ano_atingido is not None and ano_atingido <= anos_acumulo:
+            st.success(f"🎯 Você alcançará seu objetivo em aproximadamente **{ano_atingido} anos**.")
         else:
             st.warning("⚠️ Com os parâmetros atuais, a meta **não será atingida** no período simulado.")
 
@@ -173,12 +164,8 @@ if st.button("Simular Acúmulo"):
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
-
-    # Salvar resultado da Fase 1 para uso na Fase 2
-    st.session_state["valores"] = valores
-    st.session_state["anos_acumulo"] = anos
-    st.session_state["meses_acumulo"] = meses_acumulo
-
+    # Salvar resultado para próxima fase
+    st.session_state["patrimonio_final"] = patrimonio_final
 
 
 
@@ -187,15 +174,8 @@ if st.button("Simular Acúmulo"):
 # =====================
 st.markdown("### Fase 2: Renda Passiva")
 
-valores = st.session_state["valores"]
-anos = [m / 12 for m in range(len(valores))]
-
-if "patrimonio_final" in st.session_state and "valores" in st.session_state:
+if "patrimonio_final" in st.session_state:
     patrimonio_base = st.session_state["patrimonio_final"]
-    valores = st.session_state["valores"]
-    anos = st.session_state["anos_acumulo"]
-    meses_acumulo = st.session_state["meses_acumulo"]
-
 
     col1, col2 = st.columns(2)
     with col1:
