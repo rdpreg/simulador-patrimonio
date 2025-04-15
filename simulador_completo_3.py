@@ -23,6 +23,13 @@ with col3:
 with col4:
     anos_acumulo = st.slider("Prazo da Fase de Acúmulo (anos)", 1, 50, 20)
 
+meta_valor = st.number_input(
+        "Defina sua meta de patrimônio (R$)",
+        min_value=0.0,
+        value=1000000.0,
+        step=50000.0,
+        format="%.2f"
+
 if st.button("Simular Acúmulo"):
     meses_acumulo = anos_acumulo * 12
     taxa_mensal = (1 + taxa_juros_anual / 100) ** (1 / 12) - 1
@@ -36,12 +43,6 @@ if st.button("Simular Acúmulo"):
     total_aportes = aporte_inicial + (aporte_mensal * meses_acumulo)
     rendimento_total = patrimonio_final - total_aportes
 
-    meta_valor = st.number_input(
-        "Defina sua meta de patrimônio (R$)",
-        min_value=0.0,
-        value=1000000.0,
-        step=50000.0,
-        format="%.2f"
     )
 
     st.markdown("### Resultado da Fase de Acúmulo")
