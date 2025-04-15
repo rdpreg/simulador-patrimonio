@@ -55,10 +55,11 @@ if st.button("Simular Acúmulo"):
 
     #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
-    valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
+
+    # Formatar ano e patrimônio para estilo brasileiro
     anos_formatados = [f"{a:.1f}".replace(".", ",") for a in anos]
-    
-    
+    valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
+
     df = pd.DataFrame({
         "Ano": anos,
         "Ano BR": anos_formatados,
@@ -66,14 +67,15 @@ if st.button("Simular Acúmulo"):
         "Patrimônio BR": valores_formatados
     })
 
-    # Criar valores personalizados pro eixo Y com formato brasileiro
+    # Eixo Y personalizado
     tick_vals = list(range(0, int(max(valores) * 1.1), int(max(valores) / 6)))
     tick_text = [f"R$ {val:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for val in tick_vals]
 
+    # Criar gráfico
     fig = px.line(
         df,
         x="Ano",
-        y="Patrimônio (R$)",
+        y="Patrimônio",
         title="Evolução do Patrimônio Acumulado",
         markers=True
     )
@@ -83,7 +85,6 @@ if st.button("Simular Acúmulo"):
         line=dict(color="green"),
         customdata=df[["Ano BR", "Patrimônio BR"]],
         hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
-        
     )
 
     fig.update_layout(
