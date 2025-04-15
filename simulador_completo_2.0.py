@@ -77,7 +77,7 @@ if st.button("Simular Acúmulo"):
         x=df["Ano"],
         y=df["Patrimônio"],
         mode="lines",  # apenas linha
-        line=dict(color="green", width=1),  # controle total do traço
+        line=dict(color="green", width=2),  # controle total do traço
         hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>",
         customdata=df[["Ano BR", "Patrimônio BR"]],
         showlegend=False,
