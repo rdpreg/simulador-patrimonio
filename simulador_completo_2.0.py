@@ -52,14 +52,31 @@ if st.button("Simular Acúmulo"):
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
 
+    #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
-    fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(anos, valores, label="Evolução do Patrimônio", color="green")
-    ax.set_xlabel("Anos")
-    ax.set_ylabel("Valor (R$)")
-    ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"R$ {x:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")))
-    ax.grid(True)
-    st.pyplot(fig)
+    df = pd.DataFrame({
+        "Ano": anos,
+        "Patrimônio": valores
+    })
+
+    fig = px.line(
+        df,
+        x="Ano",
+        y="Patrimônio",
+        title="Evolução do Patrimônio Acumulado",
+        markers=True
+    )
+
+    fig.update_traces(line=dict(color="green"))
+    fig.update_layout(
+        yaxis_tickformat="R$,.2f",
+        hoverlabel=dict(bgcolor="white", font_size=14),
+        hovermode="x unified"
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    
 
     # Salvar resultado para próxima fase (opcional)
     st.session_state["patrimonio_final"] = patrimonio_final
