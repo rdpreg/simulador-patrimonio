@@ -23,12 +23,13 @@ with col3:
 with col4:
     anos_acumulo = st.slider("Prazo da Fase de Acúmulo (anos)", 1, 50, 20)
 
+# Input da meta ANTES do botão
 meta_valor = st.number_input(
-        "Defina sua meta de patrimônio (R$)",
-        min_value=0.0,
-        value=1000000.0,
-        step=50000.0,
-        format="%.2f"
+    "Defina sua meta de patrimônio (R$)",
+    min_value=0.0,
+    value=1000000.0,
+    step=50000.0,
+    format="%.2f"
 )
 
 if st.button("Simular Acúmulo"):
@@ -43,8 +44,6 @@ if st.button("Simular Acúmulo"):
     patrimonio_final = valores[-1]
     total_aportes = aporte_inicial + (aporte_mensal * meses_acumulo)
     rendimento_total = patrimonio_final - total_aportes
-
-    )
 
     st.markdown("### Resultado da Fase de Acúmulo")
     st.write(f"- **Patrimônio final ao fim do período:** {formata_reais(patrimonio_final)}")
@@ -84,7 +83,7 @@ if st.button("Simular Acúmulo"):
         x1=max(df["Ano"]),
         y0=meta_valor,
         y1=meta_valor,
-        line=dict(color="red", width=2, dash="dash"),
+        line=dict(color="red", width=2, dash="dash")
     )
 
     fig.add_annotation(
