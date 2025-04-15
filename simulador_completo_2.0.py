@@ -60,32 +60,38 @@ if st.button("Simular Acúmulo"):
         "Patrimônio (R$)": valores
     })
 
+    # Criar valores personalizados pro eixo Y com formato brasileiro
+    tick_vals = list(range(0, int(max(valores) * 1.1), int(max(valores) / 6)))
+    tick_text = [f"R$ {val:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for val in tick_vals]
+
     fig = px.line(
-    df,
+        df,
         x="Ano",
         y="Patrimônio (R$)",
         title="Evolução do Patrimônio Acumulado",
         markers=True
     )
 
-    fig.update_traces(line=dict(color="green"))
+    fig.update_traces(
+        line=dict(color="green"),
+        hovertemplate="Ano: %{x:.1f}<br>Patrimônio: R$ %{y:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+    )
 
     fig.update_layout(
         hovermode="x unified",
         title_font_size=18,
         font=dict(family="Arial", size=14),
         yaxis=dict(
-            tickprefix="R$ ",
-            tickformat=",.",
+            title="Valor acumulado",
+            tickvals=tick_vals,
+            ticktext=tick_text
         ),
         xaxis_title="Ano",
-        yaxis_title="Valor acumulado",
         margin=dict(t=50, l=50, r=30, b=50)
     )
 
     st.plotly_chart(fig, use_container_width=True)
 
-    
 
     # Salvar resultado para próxima fase (opcional)
     st.session_state["patrimonio_final"] = patrimonio_final
