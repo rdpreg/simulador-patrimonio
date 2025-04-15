@@ -54,7 +54,9 @@ if st.button("Simular Acúmulo"):
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
 
-    #gráfico
+    #Gráficos
+
+    #Gráfico de linha - acúmulo de patrimônio
     anos = [m / 12 for m in range(meses_acumulo + 1)]
     anos_formatados = [f"{a:.1f}".replace(".", ",") for a in anos]
     valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
@@ -99,6 +101,57 @@ if st.button("Simular Acúmulo"):
     )
 
     st.plotly_chart(fig, use_container_width=True)
+
+    import plotly.graph_objects as go
+
+    #Gráfico de barras - aporte x rendimentos ano a ano
+    # Dados por ano (filtrando apenas 1 valor por ano)
+    anos_cheios = [int(a) for a in anos if a.is_integer()]
+    anos_filtrados = sorted(list(set(anos_cheios)))
+    valores_ano = [valores[int(a * 12)] for a in anos_filtrados]
+
+    # Cálculo de aportes acumulados por ano
+    aporte_ano = [aporte_inicial + aporte_mensal * int(a * 12) for a in anos_filtrados]
+    rendimento_ano = [v - a for v, a in zip(valores_ano, aporte_ano)]
+
+    df_stack = pd.DataFrame({
+        "Ano": anos_filtrados,
+        "Aportes": aporte_ano,
+        "Rendimentos": rendimento_ano
+    })
+
+    fig_bar = go.Figure()
+
+    fig_bar.add_trace(go.Bar(
+        x=df_stack["Ano"],
+        y=df_stack["Aportes"],
+        name="Aportes",
+        marker_color="orange",
+        hovertemplate="Ano: %{x}<br>Aportes: R$ %{y:,.2f}<extra></extra>"
+    ))
+
+    fig_bar.add_trace(go.Bar(
+        x=df_stack["Ano"],
+        y=df_stack["Rendimentos"],
+        name="Rendimentos",
+        marker_color="green",
+        hovertemplate="Ano: %{x}<br>Rendimentos: R$ %{y:,.2f}<extra></extra>"
+    ))
+
+    fig_bar.update_layout(
+        barmode="stack",
+        title="Composição do Patrimônio Acumulado por Ano",
+        xaxis_title="Ano",
+        yaxis_title="Valor (R$)",
+        hovermode="x unified",
+        font=dict(family="Arial", size=14),
+        yaxis_tickprefix="R$ ",
+        yaxis_tickformat=",.2f",
+        margin=dict(t=50, l=50, r=30, b=50)
+    )
+
+    st.plotly_chart(fig_bar, use_container_width=True)
+
 
 
     # Salvar resultado para próxima fase (opcional)
