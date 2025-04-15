@@ -60,8 +60,8 @@ if st.button("Simular Acúmulo"):
     
     df = pd.DataFrame({
         "Ano": anos,
-        "Ano BR": anos_formatados,
         "Patrimônio (R$)": valores,
+        "Ano BR": anos_formatados,
         "Patrimônio BR": valores_formatados  # usado para tooltip
     })
 
