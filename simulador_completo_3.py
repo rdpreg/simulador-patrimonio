@@ -64,6 +64,7 @@ if st.button("Simular Acúmulo"):
                 if meses_restantes > 0:
                     texto_meta += f" e {meses_restantes} meses"
                 texto_meta += "**."
+                break
 
                 st.success(texto_meta)
         else:
