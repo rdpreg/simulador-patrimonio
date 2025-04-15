@@ -74,7 +74,7 @@ if st.button("Simular Acúmulo"):
 
     fig.update_traces(
         line=dict(color="green"),
-        hovertemplate="Ano: %{x:.1f}<br>Patrimônio: R$ %{y:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".")
+        hovertemplate="<b>Ano:</b> %{x:.1f}<br><b>Patrimônio:</b> R$ %{y:.2f}<extra></extra>"
     )
 
     fig.update_layout(
