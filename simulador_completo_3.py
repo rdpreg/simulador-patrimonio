@@ -51,19 +51,19 @@ if st.button("Simular Acúmulo"):
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
     if meta_valor > 0:
-    st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
+        st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
 
-    # Verificar quando a meta será atingida
-    ano_atingido = None
-    for i, v in enumerate(valores):
-        if v >= meta_valor:
-            ano_atingido = i // 12
-            break
+        # Verificar quando a meta será atingida
+        ano_atingido = None
+        for i, v in enumerate(valores):
+            if v >= meta_valor:
+                ano_atingido = i // 12
+                break
 
-    if ano_atingido is not None and ano_atingido <= anos_acumulo:
-        st.success(f"🎯 Você alcançará seu objetivo em aproximadamente **{ano_atingido} anos**.")
-    else:
-        st.warning("⚠️ Com os parâmetros atuais, a meta **não será atingida** no período simulado.")
+        if ano_atingido is not None and ano_atingido <= anos_acumulo:
+            st.success(f"🎯 Você alcançará seu objetivo em aproximadamente **{ano_atingido} anos**.")
+        else:
+            st.warning("⚠️ Com os parâmetros atuais, a meta **não será atingida** no período simulado.")
 
     anos = [m / 12 for m in range(meses_acumulo + 1)]
     anos_formatados = [f"{a:.1f}".replace(".", ",") for a in anos]
