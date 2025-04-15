@@ -82,7 +82,6 @@ if st.button("Simular Acúmulo"):
 
     fig.update_traces(
         name="Legenda",  # remove título solto
-        showlegend=False,  # <- garante que nada apareça no hover como título
         line=dict(color="green"),
         customdata=df[["Ano BR", "Patrimônio BR"]],
         hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
