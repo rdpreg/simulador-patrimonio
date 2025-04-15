@@ -124,4 +124,72 @@ if st.button("Simular Acúmulo"):
         margin=dict(t=50, l=50, r=30, b=50)
     )
 
+    
+
+    # Gráfico de Barras Empilhadas (Stacked Bar)
+    anos_cheios = [int(a) for a in anos if a.is_integer()]
+    anos_filtrados = sorted(list(set(anos_cheios)))
+    valores_ano = [valores[int(a * 12)] for a in anos_filtrados]
+    aporte_ano = [aporte_inicial + aporte_mensal * int(a * 12) for a in anos_filtrados]
+    rendimento_ano = [v - a for v, a in zip(valores_ano, aporte_ano)]
+
+    df_stack = pd.DataFrame({
+        "Ano": anos_filtrados,
+        "Aportes": aporte_ano,
+        "Rendimentos": rendimento_ano
+    })
+
+    fig_bar = go.Figure()
+
+    fig_bar.add_trace(go.Bar(
+        x=df_stack["Ano"],
+        y=df_stack["Aportes"],
+        name="Aportes",
+        marker_color="orange",
+        hovertemplate="Ano: %{x}<br>Aportes: R$ %{y:,.2f}<extra></extra>"
+    ))
+
+    fig_bar.add_trace(go.Bar(
+        x=df_stack["Ano"],
+        y=df_stack["Rendimentos"],
+        name="Rendimentos",
+        marker_color="green",
+        hovertemplate="Ano: %{x}<br>Rendimentos: R$ %{y:,.2f}<extra></extra>"
+    ))
+
+    fig_bar.update_layout(
+        barmode="stack",
+        title="Composição do Patrimônio Acumulado por Ano",
+        xaxis_title="Ano",
+        yaxis_title="Valor (R$)",
+        hovermode="x unified",
+        font=dict(family="Arial", size=14),
+        yaxis_tickprefix="R$ ",
+        yaxis_tickformat=",.2f",
+        margin=dict(t=50, l=50, r=30, b=50),
+        shapes=[
+            dict(
+                type="line",
+                xref="paper",
+                x0=0,
+                x1=1,
+                y0=meta_valor,
+                y1=meta_valor,
+                line=dict(color="red", width=2, dash="dash")
+            )
+        ],
+        annotations=[
+            dict(
+                xref="paper",
+                x=1,
+                y=meta_valor,
+                xanchor="left",
+                yanchor="bottom",
+                text=f"Meta: {formata_reais(meta_valor)}",
+                showarrow=False,
+                font=dict(color="red", size=12)
+            )
+        ]
+    )
+    
     st.plotly_chart(fig, use_container_width=True)
