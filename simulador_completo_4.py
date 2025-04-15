@@ -183,6 +183,10 @@ if st.button("Simular Acúmulo"):
 # =====================
 st.markdown("### Fase 2: Renda Passiva")
 
+valores = st.session_state["valores"]
+anos = [m / 12 for m in range(len(valores))]
+
+
 if "patrimonio_final" in st.session_state:
     patrimonio_base = st.session_state["patrimonio_final"]
 
