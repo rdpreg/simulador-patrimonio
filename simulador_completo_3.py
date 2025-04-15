@@ -11,6 +11,7 @@ st.image("Convexa-logo.png", width=180)
 st.markdown("<h1 style='margin-bottom: 0.0rem;'>Simulador de Patrimônio</h1>", unsafe_allow_html=True)
 st.markdown("### Fase 1: Acúmulo de Patrimônio")
 
+# Inputs
 col1, col2 = st.columns(2)
 with col1:
     aporte_inicial = st.number_input("Aporte Inicial (R$)", min_value=0.0, value=50000.0, step=100.0, format="%.2f")
@@ -23,7 +24,6 @@ with col3:
 with col4:
     anos_acumulo = st.slider("Prazo da Fase de Acúmulo (anos)", 1, 50, 20)
 
-# Input da meta ANTES do botão
 meta_valor = st.number_input(
     "Defina sua meta de patrimônio (R$)",
     min_value=0.0,
@@ -50,16 +50,14 @@ if st.button("Simular Acúmulo"):
     st.write(f"- Aporte inicial: {formata_reais(aporte_inicial)}")
     st.write(f"- Total aportado ao longo do período: {formata_reais(total_aportes)}")
     st.write(f"- Total de rendimentos acumulados: {formata_reais(rendimento_total)}")
+
     if meta_valor > 0:
         st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
-
-        # Verificar quando a meta será atingida
         ano_atingido = None
         for i, v in enumerate(valores):
             if v >= meta_valor:
                 ano_atingido = i // 12
                 break
-
         if ano_atingido is not None and ano_atingido <= anos_acumulo:
             st.success(f"🎯 Você alcançará seu objetivo em aproximadamente **{ano_atingido} anos**.")
         else:
@@ -80,7 +78,6 @@ if st.button("Simular Acúmulo"):
     tick_text = [formata_reais(v) for v in tick_vals]
 
     fig = go.Figure()
-
     fig.add_trace(go.Scatter(
         x=df["Ano"],
         y=df["Patrimônio"],
@@ -90,7 +87,6 @@ if st.button("Simular Acúmulo"):
         hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>",
         showlegend=False
     ))
-
     fig.add_shape(
         type="line",
         x0=min(df["Ano"]),
@@ -99,7 +95,6 @@ if st.button("Simular Acúmulo"):
         y1=meta_valor,
         line=dict(color="red", width=2, dash="dash")
     )
-
     fig.add_annotation(
         x=max(df["Ano"]),
         y=meta_valor,
@@ -109,7 +104,6 @@ if st.button("Simular Acúmulo"):
         xanchor="left",
         yanchor="bottom"
     )
-
     fig.update_layout(
         title="Evolução do Patrimônio Acumulado",
         hovermode="x unified",
@@ -123,10 +117,9 @@ if st.button("Simular Acúmulo"):
         ),
         margin=dict(t=50, l=50, r=30, b=50)
     )
+    st.plotly_chart(fig, use_container_width=True)
 
-    
-
-    # Gráfico de Barras Empilhadas (Stacked Bar)
+    # Gráfico de barras stacked
     anos_cheios = [int(a) for a in anos if a.is_integer()]
     anos_filtrados = sorted(list(set(anos_cheios)))
     valores_ano = [valores[int(a * 12)] for a in anos_filtrados]
@@ -140,23 +133,8 @@ if st.button("Simular Acúmulo"):
     })
 
     fig_bar = go.Figure()
-
-    fig_bar.add_trace(go.Bar(
-        x=df_stack["Ano"],
-        y=df_stack["Aportes"],
-        name="Aportes",
-        marker_color="orange",
-        hovertemplate="Ano: %{x}<br>Aportes: R$ %{y:,.2f}<extra></extra>"
-    ))
-
-    fig_bar.add_trace(go.Bar(
-        x=df_stack["Ano"],
-        y=df_stack["Rendimentos"],
-        name="Rendimentos",
-        marker_color="green",
-        hovertemplate="Ano: %{x}<br>Rendimentos: R$ %{y:,.2f}<extra></extra>"
-    ))
-
+    fig_bar.add_trace(go.Bar(x=df_stack["Ano"], y=df_stack["Aportes"], name="Aportes", marker_color="orange"))
+    fig_bar.add_trace(go.Bar(x=df_stack["Ano"], y=df_stack["Rendimentos"], name="Rendimentos", marker_color="green"))
     fig_bar.update_layout(
         barmode="stack",
         title="Composição do Patrimônio Acumulado por Ano",
@@ -166,30 +144,25 @@ if st.button("Simular Acúmulo"):
         font=dict(family="Arial", size=14),
         yaxis_tickprefix="R$ ",
         yaxis_tickformat=",.2f",
-        margin=dict(t=50, l=50, r=30, b=50),
-        shapes=[
-            dict(
-                type="line",
-                xref="paper",
-                x0=0,
-                x1=1,
-                y0=meta_valor,
-                y1=meta_valor,
-                line=dict(color="red", width=2, dash="dash")
-            )
-        ],
-        annotations=[
-            dict(
-                xref="paper",
-                x=1,
-                y=meta_valor,
-                xanchor="left",
-                yanchor="bottom",
-                text=f"Meta: {formata_reais(meta_valor)}",
-                showarrow=False,
-                font=dict(color="red", size=12)
-            )
-        ]
+        margin=dict(t=50, l=50, r=30, b=50)
     )
-    
-    st.plotly_chart(fig, use_container_width=True)
+    fig_bar.add_shape(
+        type="line",
+        xref="paper", yref="y",
+        x0=0, x1=1,
+        y0=meta_valor, y1=meta_valor,
+        line=dict(color="red", width=2, dash="dash")
+    )
+    fig_bar.add_annotation(
+        xref="paper", yref="y",
+        x=1, y=meta_valor,
+        text=f"Meta: {formata_reais(meta_valor)}",
+        showarrow=False,
+        font=dict(color="red", size=12),
+        xanchor="left",
+        yanchor="bottom"
+    )
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+    # Salvar resultado para próxima fase
+    st.session_state["patrimonio_final"] = patrimonio_final
