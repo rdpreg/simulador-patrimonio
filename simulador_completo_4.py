@@ -173,8 +173,12 @@ if st.button("Simular Acúmulo"):
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
-    # Salvar resultado para próxima fase
-    st.session_state["patrimonio_final"] = patrimonio_final
+
+    # Salvar resultado da Fase 1 para uso na Fase 2
+    st.session_state["valores"] = valores
+    st.session_state["anos_acumulo"] = anos
+    st.session_state["meses_acumulo"] = meses_acumulo
+
 
 
 
@@ -186,9 +190,12 @@ st.markdown("### Fase 2: Renda Passiva")
 valores = st.session_state["valores"]
 anos = [m / 12 for m in range(len(valores))]
 
-
-if "patrimonio_final" in st.session_state:
+if "patrimonio_final" in st.session_state and "valores" in st.session_state:
     patrimonio_base = st.session_state["patrimonio_final"]
+    valores = st.session_state["valores"]
+    anos = st.session_state["anos_acumulo"]
+    meses_acumulo = st.session_state["meses_acumulo"]
+
 
     col1, col2 = st.columns(2)
     with col1:
