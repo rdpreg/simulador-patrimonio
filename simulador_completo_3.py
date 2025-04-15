@@ -53,11 +53,14 @@ if st.button("Simular Acúmulo"):
 
     if meta_valor > 0:
         st.write(f"- **Meta definida:** {formata_reais(meta_valor)}")
+        
         ano_atingido = None
         for i, v in enumerate(valores):
             if v >= meta_valor:
                 meses_atingido = i
                 break
+                
+        if meses_atingido is not None and meses_atingido <= meses_acumulo:       
                 anos_cheios = meses_atingido // 12
                 meses_restantes = meses_atingido % 12
 
