@@ -81,7 +81,7 @@ if st.button("Simular Acúmulo"):
     )
 
     fig.update_traces(
-        mode="lines+markers",  # 👈 isso força a exibição do traço + marcadores
+        mode="lines",  # 👈 isso força a exibição do traço
         line=dict(color="green", width=1),
         customdata=df[["Ano BR", "Patrimônio BR"]],
         hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
