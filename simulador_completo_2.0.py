@@ -10,7 +10,7 @@ def formata_reais(valor):
 
 st.set_page_config(page_title="Simulador de Patrimônio (Fase 1 - Acúmulo)", layout="centered")
 
-st.image("logo_convexa.png", width=180)
+st.image("Convexa-logo.png", width=180)
 
 st.markdown("""
 <h1 style='margin-bottom: 0.0rem;'>Simulador de Patrimônio</h1>
