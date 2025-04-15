@@ -55,8 +55,6 @@ if st.button("Simular Acúmulo"):
 
     #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
-
-    # Formatar ano e patrimônio para estilo brasileiro
     anos_formatados = [f"{a:.1f}".replace(".", ",") for a in anos]
     valores_formatados = [f"R$ {v:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for v in valores]
 
@@ -67,36 +65,35 @@ if st.button("Simular Acúmulo"):
         "Patrimônio BR": valores_formatados
     })
 
-    # Eixo Y personalizado
+    # Formatando eixo Y manualmente
     tick_vals = list(range(0, int(max(valores) * 1.1), int(max(valores) / 6)))
     tick_text = [f"R$ {val:,.2f}".replace(",", "v").replace(".", ",").replace("v", ".") for val in tick_vals]
 
-    # Criar gráfico
-    fig = px.line(
-        df,
-        x="Ano",
-        y="Patrimônio",
-        title="Evolução do Patrimônio Acumulado",
-        markers=True
-    )
+    # Criar gráfico com go.Figure
+    fig = go.Figure()
 
-    fig.update_traces(
-        mode="lines",  # 👈 isso força a exibição do traço
-        line=dict(color="green", width=1),
+    fig.add_trace(go.Scatter(
+        x=df["Ano"],
+        y=df["Patrimônio"],
+        mode="lines",  # apenas linha
+        line=dict(color="green", width=1),  # controle total do traço
+        hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>",
         customdata=df[["Ano BR", "Patrimônio BR"]],
-        hovertemplate="<b>Ano:</b> %{customdata[0]}<br><b>Patrimônio:</b> %{customdata[1]}<extra></extra>"
-    )
+        showlegend=False,
+        name=""
+    ))
 
     fig.update_layout(
+        title="Evolução do Patrimônio Acumulado",
         hovermode="x unified",
-        title_font_size=18,
         font=dict(family="Arial", size=14),
+        title_font_size=18,
+        xaxis_title="Ano",
         yaxis=dict(
             title="Valor acumulado",
             tickvals=tick_vals,
             ticktext=tick_text
         ),
-        xaxis_title="Ano",
         margin=dict(t=50, l=50, r=30, b=50)
     )
 
