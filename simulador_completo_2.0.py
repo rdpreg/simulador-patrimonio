@@ -56,13 +56,13 @@ if st.button("Simular Acúmulo"):
 
     #gráfico
     anos = [m / 12 for m in range(meses_acumulo + 1)]
-        df = pd.DataFrame({
+    df = pd.DataFrame({
         "Ano": anos,
         "Patrimônio (R$)": valores
     })
 
     fig = px.line(
-        df,
+    df,
         x="Ano",
         y="Patrimônio (R$)",
         title="Evolução do Patrimônio Acumulado",
