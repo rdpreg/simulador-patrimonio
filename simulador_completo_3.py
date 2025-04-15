@@ -29,6 +29,7 @@ meta_valor = st.number_input(
         value=1000000.0,
         step=50000.0,
         format="%.2f"
+    )
 
 if st.button("Simular Acúmulo"):
     meses_acumulo = anos_acumulo * 12
